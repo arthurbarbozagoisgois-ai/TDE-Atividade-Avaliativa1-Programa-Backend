@@ -1,0 +1,73 @@
+//Parte01-ContaBancaria.java
+public class ContaBancaria {
+    private String numero;
+    private String titular;
+    private double saldo;
+
+    public ContaBancaria(String numero, String titular) {
+        this.numero = numero;
+        this.titular = titular;
+        this.saldo = 0.0;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) {
+            this.saldo += valor;
+            System.out.println("Depósito de R$ " + valor + " realizado com sucesso para " + this.titular);
+        } else {
+            System.out.println("Erro: O valor do depósito deve ser positivo.");
+        }
+    }
+
+    public void sacar(double valor) {
+        if (valor <= 0) {
+            System.out.println("Erro: O valor do saque deve ser positivo.");
+            return;
+        }
+        
+        if (this.saldo >= valor) {
+            this.saldo -= valor;
+            System.out.println("Saque de R$ " + valor + " realizado com sucesso para " + this.titular);
+        } else {
+            System.out.println("Erro: Saldo insuficiente para realizar o saque de R$ " + valor + " na conta de " + this.titular);
+        }
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+}
+//Parte02-Principal.java
+public class Principal {
+    public static void main(String[] args) {
+        // Criando as contas para o João e para a Maria
+        ContaBancaria conta1 = new ContaBancaria("001-5", "João");
+        ContaBancaria conta2 = new ContaBancaria("002-8", "Maria");
+
+        System.out.println("=== OPERAÇÕES: CONTA DO JOÃO ===");
+        conta1.depositar(500.00);
+        conta1.sacar(200.00);
+        
+        // Testando validações (situações inválidas)
+        conta1.depositar(-50.00); // Depósito inválido
+        conta1.sacar(1000.00);    // Saldo insuficiente
+
+        System.out.println("\n=== OPERAÇÕES: CONTA DA MARIA ===");
+        conta2.depositar(1200.50);
+        conta2.sacar(400.00);
+        conta2.depositar(150.00);
+
+        // Apresentando o saldo final de cada conta
+        System.out.println("\n=== SALDOS FINAIS ===");
+        System.out.println("Conta: " + conta1.getNumero() + " | Titular: " + conta1.getTitular() + " | Saldo: R$ " + conta1.getSaldo());
+        System.out.println("Conta: " + conta2.getNumero() + " | Titular: " + conta2.getTitular() + " | Saldo: R$ " + conta2.getSaldo());
+    }
+}

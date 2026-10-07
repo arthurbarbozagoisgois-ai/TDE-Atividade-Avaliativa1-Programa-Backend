@@ -1,0 +1,100 @@
+//Parte01-Data.java
+public class Data {
+
+    private int mes;
+    private int dia;
+    private int ano;
+
+    // Construtor que inicializa os atributos com validação
+    public Data(int mes, int dia, int ano) {
+        setMes(mes);
+        setDia(dia);
+        setAno(ano);
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        if (mes >= 1 && mes <= 12) {
+            this.mes = mes;
+        }
+    }
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setDia(int dia) {
+        if (dia >= 1 && dia <= 31) {
+            this.dia = dia;
+        }
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        if (ano > 0) {
+            this.ano = ano;
+        }
+    }
+
+    public void imprimirData() {
+        System.out.println(dia + "/" + mes + "/" + ano);
+    }
+
+    // Calcula os dias acumulados no ano até o mês informado
+    public int diasAteMes(int mes) {
+        int[] diasPorMes = {
+            31, 28, 31, 30, 31, 30,
+            31, 31, 30, 31, 30, 31
+        };
+
+        if (mes < 1 || mes > 12) {
+            return 0;
+        }
+
+        int total = 0;
+
+        for (int i = 0; i < mes - 1; i++) {
+            total += diasPorMes[i];
+        }
+
+        return total;
+    }
+}
+//Parte02-TesteData.java
+public class TesteData {
+
+    public static void main(String[] args) {
+
+        // Dois objetos, cada um com seu próprio estado
+        Data data = new Data(10, 6, 2026);
+        Data data2 = new Data(12, 25, 2025);
+
+        System.out.println("Data 1:");
+        data.imprimirData();               // 6/10/2026
+
+        System.out.println("Data 2:");
+        data2.imprimirData();              // 25/12/2025
+
+        System.out.println("Mês: " + data.getMes());
+        System.out.println("Dia: " + data.getDia());
+        System.out.println("Ano: " + data.getAno());
+
+        // Valores inválidos: devem ser recusados, a data não muda
+        data.setMes(13);
+        data.setDia(32);
+        data.setAno(-5);
+        System.out.println("Data 1 após valores inválidos:");
+        data.imprimirData();               // 6/10/2026
+
+        // Dias acumulados até o mês
+        System.out.println("Dias até o mês 10: " + data.diasAteMes(10));   // 273
+        System.out.println("Dias até o mês 12: " + data2.diasAteMes(12));  // 334
+        System.out.println("Mês inválido (15): " + data.diasAteMes(15));   // 0
+    }
+}

@@ -1,3 +1,4 @@
+//Parte01-Retangulo.java
 public class Retangulo {
     private double length;
     private double width;
@@ -39,3 +40,38 @@ public class Retangulo {
         return this.length * this.width;
     }
 }
+//Parte02-Principla.java
+public class Principal {
+    public static void main(String[] args) {
+        // Criando o primeiro retângulo (usará os valores padrão de 1.0)
+        Retangulo retangulo1 = new Retangulo();
+        System.out.println("=== RETÂNGULO 1 (Valores Padrão) ===");
+        System.out.println("Comprimento: " + retangulo1.getLength());
+        System.out.println("Largura: " + retangulo1.getWidth());
+        System.out.println("Área: " + retangulo1.calcularArea());
+        System.out.println("Perímetro: " + retangulo1.calcularPerimetro());
+
+        // Criando o segundo retângulo com valores válidos diferentes
+        Retangulo retangulo2 = new Retangulo();
+        retangulo2.setLength(5.5);
+        retangulo2.setWidth(3.0);
+        System.out.println("\n=== RETÂNGULO 2 (Valores Válidos) ===");
+        System.out.println("Comprimento: " + retangulo2.getLength());
+        System.out.println("Largura: " + retangulo2.getWidth());
+        System.out.println("Área: " + retangulo2.calcularArea());
+        System.out.println("Perímetro: " + retangulo2.calcularPerimetro());
+
+        // Testando validações (situações inválidas fora do intervalo entre 0.0 e 20.0)
+        System.out.println("\n=== TESTANDO VALORES INVÁLIDOS ===");
+        
+        Retangulo retangulo3 = new Retangulo();
+        System.out.println("Tentando definir comprimento 25.0 (inválido):");
+        retangulo3.setLength(25.0); // Deve rejeitar e manter o valor padrão (1.0)
+        
+        System.out.println("Tentando definir largura -2.5 (inválido):");
+        retangulo3.setWidth(-2.5);  // Deve rejeitar e manter o valor padrão (1.0)
+        
+        System.out.println("Estado final do Retângulo 3 após tentativas inválidas:");
+        System.out.println("Comprimento: " + retangulo3.getLength());
+        System.out.println("Largura: " + retangulo3.getWidth());
+    }

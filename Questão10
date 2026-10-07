@@ -1,0 +1,93 @@
+//Parte01-Funcionario.java
+public class Funcionario {
+    // Atributos privados conforme as recomendações
+    private String nome;
+    private String cargo;
+    private double salario;
+    private String matricula;
+    private String departamento;
+
+    // Construtor para inicializar os atributos utilizando o operador this
+    public Funcionario(String nome, String cargo, double salario, String matricula, String departamento) {
+        this.nome = nome;
+        this.cargo = cargo;
+        // Validação básica para impedir salário negativo na criação do objeto
+        this.salario = (salario > 0) ? salario : 0.0;
+        this.matricula = matricula;
+        this.departamento = departamento;
+    }
+
+    // Getters para consulta dos atributos
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getCargo() {
+        return this.cargo;
+    }
+
+    public double getSalario() {
+        return this.salario;
+    }
+
+    public String getMatricula() {
+        return this.matricula;
+    }
+
+    public String getDepartamento() {
+        return this.departamento;
+    }
+
+    // Método para promover o funcionário (altera cargo e aumenta salário)
+    public void promover(String novoCargo, double aumento) {
+        if (novoCargo != null && !novoCargo.trim().isEmpty()) {
+            this.cargo = novoCargo;
+        }
+        // Validação: o aumento deve ser um valor positivo
+        if (aumento > 0) {
+            this.salario += aumento;
+        }
+    }
+
+    // Método para transferir o funcionário de departamento
+    public void transferir(String novoDepartamento) {
+        if (novoDepartamento != null && !novoDepartamento.trim().isEmpty()) {
+            this.departamento = novoDepartamento;
+        }
+    }
+
+    // Método para exibir todos os dados no console
+    public void exibirDados() {
+        System.out.println("----- Dados do Funcionário -----");
+        System.out.println("Nome: " + this.nome);
+        System.out.println("Matrícula: " + this.matricula);
+        System.out.println("Cargo: " + this.cargo);
+        System.out.println("Departamento: " + this.departamento);
+        System.out.println("Salário: R$ " + String.format("%.2f", this.salario));
+        System.out.println("--------------------------------");
+    }
+}
+//Parte02-TesteFuncionario.java
+public class TesteFuncionario {
+    public static void main(String[] args) {
+        // Criação de múltiplos objetos para demonstrar estados independentes
+        Funcionario func1 = new Funcionario("Carlos Silva", "Desenvolvedor Júnior", 3500.00, "2023001", "TI");
+        Funcionario func2 = new Funcionario("Ana Souza", "Analista de RH", 4200.00, "2023002", "Recursos Humanos");
+
+        System.out.println("STATUS INICIAL DOS FUNCIONÁRIOS:\n");
+        func1.exibirDados();
+        func2.exibirDados();
+
+        System.out.println("\n=> Simulando promoções e transferências...\n");
+
+        // Utilizando os métodos de comportamento da entidade
+        func1.promover("Desenvolvedor Pleno", 1500.00); // Promove Carlos
+        
+        func2.transferir("Gestão de Pessoas"); // Transfere Ana
+        func2.promover("Gerente de RH", 2800.00); // Promove Ana
+
+        System.out.println("STATUS ATUALIZADO DOS FUNCIONÁRIOS:\n");
+        func1.exibirDados();
+        func2.exibirDados();
+    }
+}
